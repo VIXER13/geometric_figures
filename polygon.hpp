@@ -36,6 +36,8 @@ protected:
     }
 
 public:
+    virtual ~polygon_base() noexcept = default;
+
     virtual size_t vertex_count() = 0;
     virtual void set_vertex(const size_t i, const vertex2D<T>& vertex) = 0;
     virtual const vertex2D<T>& get_vertex(const size_t i) = 0;
