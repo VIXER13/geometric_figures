@@ -1,6 +1,6 @@
 #include <iostream>
 #include <memory>
-#include "polygon.hpp"
+#include "geometry2D.hpp"
 
 void check_polygon(const std::unique_ptr<geometry::polygon_base<double>>& poly) {
     std::cout << "Coordinates: " << std::endl;
@@ -18,7 +18,7 @@ int main() {
 
     std::unique_ptr<polygon_base<double>> poly = 
         std::make_unique<dynamic_polygon<double>>(
-            dynamic_polygon<double>::container_type{
+            std::vector<vertex2D<double>>{
                 vertex2D<double>{-1., -1.},
                 vertex2D<double>{ 1., -1.},
                 vertex2D<double>{ 1.,  1.},
@@ -32,7 +32,11 @@ int main() {
 
     // Намеренно делаем полигон вырожденным
     poly->set_vertex(0, vertex2D<double>{0., 17});
-    check_polygon(poly);
+    try {
+        check_polygon(poly);
+    } catch(const std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
 
     return EXIT_SUCCESS;
 }
